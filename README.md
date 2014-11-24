@@ -23,10 +23,10 @@ should be completed for '1.0.0' version. Keep up to date!
 
 ## Roadmap
 
-[ ] Full test coverage
-[ ] Wiki Documentation
-[ ] Basic install generator
-[ ] ComponentAutoload integration in core (Currently present as a framework
+- [ ] Full test coverage
+- [ ] Wiki and README Documentation
+- [ ] Basic install generator
+- [ ] ComponentAutoload integration in core (Currently present as a framework
     extension)
 
 ## Installation
