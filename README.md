@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/selenium-record.svg)](http://badge.fury.io/rb/selenium-record)
+[![Gem Version](https://badge.fury.io/rb/seleniumrecord.svg)](http://badge.fury.io/rb/seleniumrecord)
 [![Code Climate](https://codeclimate.com/github/dsaenztagarro/selenium-record/badges/gpa.svg)](https://codeclimate.com/github/dsaenztagarro/selenium-record)
 
 # SeleniumRecord
