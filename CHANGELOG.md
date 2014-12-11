@@ -4,3 +4,4 @@
 * Added `cover` method in `SeleniumRecord::Actions` module for managing 
   `Selenium::WebDriver::Error::StaleElementReferenceError` when clicking 
   elements
+* Added `ComponentAutoload` module

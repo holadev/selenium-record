@@ -1,0 +1,18 @@
+module SeleniumObjects
+  module Base
+    # Base class for all selenium objects representing an application page
+    class ApplicationPage < ::SeleniumRecord::NavigationItem
+      private
+
+      # @return [String] the locator for the inactive menu of the page
+      def link_inactive_locator
+        # Replace with: { locatorType: argument }
+      end
+
+      # @return [String] the locator for the active menu link of the page
+      def link_active_locator
+        # Replace with: { locatorType: argument }
+      end
+    end
+  end
+end

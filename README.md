@@ -21,14 +21,16 @@ the fix need only be applied in one place.
 Generates scaffolding for selenium objects
 
 ```shell
-bundle exec rake selenium_record:install
+bundle exec rake selenium_record:install --test_framework=rspec
 ```
 
 Options:
-- 'test_with': [String] Test framework to use. Possible values: 'rspec', 
-  'cucumber', 'test'. Default: 'rspec'.
+- 'test_framework': [String] Test framework to use. Possible values: 'rspec', 
+  'cucumber', 'test_unit'. 
 - 'object_module': [String] Base module for selenium objects. 
   Default: 'SeleniumObject'
+- 'navigation_components': [Array] The names of the navigation components 
+  expected. Default: ['pages', 'tab']
 
 ## Warning
 
@@ -78,4 +80,4 @@ TODO: Write usage instructions here
 
 ## Thanks
 
-Thanks to Hola Internet for let me right this kind of tools
+Thanks to [Hola Internet](https://github.com/holadev) for let me right this kind of tools
