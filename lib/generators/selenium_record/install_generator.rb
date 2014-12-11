@@ -1,21 +1,56 @@
+require 'active_support/inflector'
+require 'pry'
+
 module SeleniumRecord
   module Generators
+    # Generator for installing selenium record in project
     class InstallGenerator < Rails::Generators::Base
-      desc "Copy SeleniumRecord default files"
+      desc 'Copy SeleniumRecord default files'
       source_root File.expand_path('../templates', __FILE__)
-      # class_option :template_engine, desc: 'Template engine to be invoked (erb, haml or slim).'
-      # class_option :bootstrap, type: :boolean, desc: 'Add the Bootstrap wrappers to the SimpleForm initializer.'
-      # class_option :foundation, type: :boolean, desc: 'Add the Zurb Foundation 5 wrappers to the SimpleForm initializer.'
+      class_option :objects_module, type: :string, default: 'SeleniumObjects',
+                                    desc: 'Module containing selenium objects'
+      class_option :test_framework, type: :string, default: 'rspec',
+                                    desc: 'Test framework used'
+      class_option :navigation_components, type: :array,
+                                           default: %w(page tab),
+                                           desc: 'Navigation components'
 
-      def info_bootstrap
-        return if options.bootstrap? || options.foundation?
-        puts "SimpleForm 3 supports Bootstrap and Zurb Foundation 5. If you want "\
-          "a configuration that is compatible with one of these frameworks, then please " \
-          "re-run this generator with --bootstrap or --foundation as an option."
+      def create_initializer_file
+        template 'selenium_record.rb.erb',
+                 'config/initializers/selenium_record.rb'
       end
 
-      def copy_config
-        template "config/initializers/simple_form.rb"
+      def create_base_dir
+        empty_directory object_module_path
+      end
+
+      def create_navigation_components
+        om_path = object_module_path
+        options[:navigation_components].each do |component|
+          comp_folder = ActiveSupport::Inflector.pluralize(component)
+          empty_directory File.join om_path, comp_folder
+          @component_klass = ActiveSupport::Inflector.classify(
+            options[:objects_module])
+          template 'base/application_navigation_component.rb.erb',
+                   File.join(om_path, 'base', "application_#{component}.rb")
+        end
+      end
+
+      private
+
+      def object_module_path
+        om_name = options[:objects_module].to_s
+        om_folder = ActiveSupport::Inflector.underscore(om_name)
+        File.join destination_root, test_folder, om_folder
+      end
+
+      def test_folder
+        case options[:test_framework]
+        when 'rspec' then 'spec'
+        when 'cucumber' then 'features'
+        else
+          'test'
+        end
       end
     end
   end

@@ -14,6 +14,22 @@ Selenium Record object simply models these as objects within the test code.
 This reduces the amount of duplicated code and means that if the UI changes,
 the fix need only be applied in one place.
 
+## Rake tasks
+
+**selenium_record:install**
+
+Generates scaffolding for selenium objects
+
+```shell
+bundle exec rake selenium_record:install
+```
+
+Options:
+- 'test_with': [String] Test framework to use. Possible values: 'rspec', 
+  'cucumber', 'test'. Default: 'rspec'.
+- 'object_module': [String] Base module for selenium objects. 
+  Default: 'SeleniumObject'
+
 ## Warning
 
 This gem is still under development! As this gem was born while I was trying to
@@ -25,8 +41,8 @@ should be completed for '1.0.0' version. Keep up to date!
 
 - [ ] Full test coverage
 - [ ] Wiki and README Documentation
-- [ ] Basic install generator
-- [ ] ComponentAutoload integration in core (Currently present as a framework
+- [X] Basic install generator
+- [X] ComponentAutoload integration in core (Currently present as a framework
     extension)
 
 ## Installation

@@ -38,7 +38,7 @@ module SeleniumRecord
     end
 
     def click(locator)
-      find(locator).click
+      cover { find(locator).click }
     end
 
     def submit
@@ -76,5 +76,19 @@ module SeleniumRecord
 
     # Remove once all helper references belongs to selenium objects
     module_function :choose_option
+
+    protected
+
+    # Runs block code free of:
+    # `Selenium::WebDriver::Error::StaleElementReferenceError`
+    # Case the exception is raised it is reloaded the dom of the object
+    #
+    # @param block [Block] The block of code to be executed
+    def cover(&block)
+      block.call
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      load_dom
+      retry
+    end
   end
 end

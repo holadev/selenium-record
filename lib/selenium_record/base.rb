@@ -1,3 +1,4 @@
+require_relative 'configuration'
 require_relative 'core'
 require_relative 'lookup'
 require_relative 'actions'
@@ -9,6 +10,9 @@ require_relative 'axis'
 require_relative 'html'
 require_relative 'theme'
 require_relative 'translations'
+require_relative 'component_autoload'
+
+require 'active_support/inflector'
 
 # SeleniumRecord provides a framework based on the Selenium Page Object pattern
 #
@@ -19,6 +23,7 @@ module SeleniumRecord
   # @abstract Subclass and override {#run} to implement
   #   a custom Selenium object
   class Base
+    include Configuration
     include Core
     include Lookup
     include Actions
@@ -30,6 +35,7 @@ module SeleniumRecord
     include Html
     include Theme
     include Translations
+    include ComponentAutoload
     attr_reader :browser, :parent_el, :root_el, :object
     alias_method :__rootel__, :root_el
 
