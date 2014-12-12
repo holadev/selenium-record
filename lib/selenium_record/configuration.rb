@@ -1,6 +1,6 @@
 module SeleniumRecord
   # Defines configuration options
-  class Configuration
+  module Configuration
     @js_library = :jquery
     @choose_option_max_retries = 10
 

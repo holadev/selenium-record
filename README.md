@@ -32,6 +32,24 @@ Options:
 - 'navigation_components': [Array] The names of the navigation components 
   expected. Default: ['pages', 'tab']
 
+## Install
+
+After running `rake selenium_record::install`, you should include a module in
+Rspec with:
+
+```ruby
+module SeleniumRecordHelpers
+  def browser
+    @browser ||= page.driver.browser
+  end
+
+  def create_page(page_sym)
+    klass = page_sym.to_s.camelize
+    "SeleniumObjects::Pages::#{klass}Page".constantize.new(browser).load_dom!
+  end
+end
+```
+
 ## Warning
 
 This gem is still under development! As this gem was born while I was trying to

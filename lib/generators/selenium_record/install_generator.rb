@@ -15,10 +15,10 @@ module SeleniumRecord
                                            default: %w(page tab),
                                            desc: 'Navigation components'
 
-      def create_initializer_file
-        template 'selenium_record.rb.erb',
-                 'config/initializers/selenium_record.rb'
-      end
+      # def create_initializer_file
+      #   template 'selenium_record.rb.erb',
+      #            'config/initializers/selenium_record.rb'
+      # end
 
       def create_base_dir
         empty_directory object_module_path
@@ -40,6 +40,15 @@ module SeleniumRecord
         template 'autoload.rb.erb', File.join(object_module_path, 'autoload.rb')
       end
 
+      def add_includes_spec_helper
+        prepend_to_file 'spec/spec_helper.rb' do
+          "# SeleniumRecord install configuration\n" \
+          "require 'selenium-webdriver'\n" \
+          "require 'selenium_record'\n" \
+          "require_relative 'support/selenium_objects/base'\n\n"
+        end
+      end
+
       private
 
       def create_component(component)
@@ -51,10 +60,13 @@ module SeleniumRecord
                  File.join(om_path, 'base', "application_#{component}.rb")
       end
 
-      def object_module_path
+      def object_module_folder
         om_name = options[:objects_module].to_s
-        om_folder = ActiveSupport::Inflector.underscore(om_name)
-        File.join destination_root, test_folder, om_folder
+        ActiveSupport::Inflector.underscore(om_name)
+      end
+
+      def object_module_path
+        File.join destination_root, test_folder, 'support', object_module_folder
       end
 
       def test_folder

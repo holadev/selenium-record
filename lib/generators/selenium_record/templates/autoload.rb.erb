@@ -14,3 +14,7 @@ end
 %w(<%= @navigation_folders %> views pages).each do |folder|
   Dir["#{File.dirname(__FILE__)}/#{folder}/*.rb"].each { |f| require f }
 end
+
+RSpec.configure do |config|
+  config.include SeleniumObjects::Pages, type: :feature # js: true
+end
