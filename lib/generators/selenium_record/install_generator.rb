@@ -33,6 +33,10 @@ module SeleniumRecord
       end
 
       def create_autoload
+        @navigation_components = options[:navigation_components]
+        @navigation_folders = @navigation_components.map do |component|
+          ActiveSupport::Inflector.pluralize(component)
+        end.join(' ')
         template 'autoload.rb.erb', File.join(object_module_path, 'autoload.rb')
       end
 

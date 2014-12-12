@@ -1,15 +1,16 @@
 module SeleniumObjects
   # Base classes for all selenium objects
   module Base
-    require_relative 'base/application_view'
-    <% for @component in options[:navigation_components] %>
-    require_relative "base/application_#{@component}"
+    # Navigation components
+    <% @navigation_components.each do |component| %>
+    require_relative "base/application_<%= component %>"
     <% end %>
-    require_relative 'base/application_pill'
+    # Base components
+    require_relative 'base/application_view'
     require_relative 'base/application_page'
   end
 end
 
-%w(helpers :items pills tabs modals pages).each do |folder|
+%w(<%= @navigation_folders %> views pages).each do |folder|
   Dir["#{File.dirname(__FILE__)}/#{folder}/*.rb"].each { |f| require f }
 end
