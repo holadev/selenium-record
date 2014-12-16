@@ -73,10 +73,13 @@ module SeleniumRecord
     component_loader :modal, 'SeleniumRecord::Base'
 
     # @param model [ActiveRecord::Base]
+    # @param [Hash] opts the options to instance a view
+    # @param opts [String] :subject The name of the view. Default to model class
+    #   name
     # @return [SeleniumObject::View::ApplicationView]
-    def view_for(model)
-      create_record(model, namespace: so_module(:views), suffix: 'View')
-        .tap(&:load_dom)
+    def view_for(model, opts = {})
+      view_options = opts.merge namespace: so_module(:views), suffix: 'View'
+      create_record(model, view_options).tap(&:load_dom)
     end
 
     # Proxies all calls to component methods

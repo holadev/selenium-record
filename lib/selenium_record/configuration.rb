@@ -10,10 +10,10 @@ module SeleniumRecord
 
     # param object_type [Symbol] The object type
     # @return [Module] The module containing classes of object type
-    def self.so_module(object_type = nil)
-      base_module = SeleniumRecord.objects_module
+    def so_module(object_type = nil)
+      base_module = SeleniumRecord::Configuration.objects_module
       return base_module unless object_type
-      klass = ActiveSupport::Inflector.classify(object_type.to_s)
+      klass = object_type.to_s.classify.pluralize
       base_module.const_get(klass)
     end
   end

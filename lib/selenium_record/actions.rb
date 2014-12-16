@@ -28,6 +28,13 @@ module SeleniumRecord
       click_wait xpath: dropdown_menu_xpath(trans menu)
     end
 
+    # Clear input of type 'text'
+    def clear(locator)
+      el = find(locator)
+      el.send_keys('')
+      el.clear
+    end
+
     # Clicks on element and wait until all jquery events are dispatched
     # @param how [Symbol]  (:class, :class_name, :css, :id, :link_text, :link,
     #   :partial_link_text, :name, :tag_name, :xpath)
@@ -38,7 +45,13 @@ module SeleniumRecord
     end
 
     def click(locator)
-      cover { find(locator).click }
+      find(locator).click
+    end
+
+    def fill(locator, text)
+      return unless text
+      clear(locator)
+      find(locator).send_keys(text || '')
     end
 
     def submit
@@ -76,19 +89,5 @@ module SeleniumRecord
 
     # Remove once all helper references belongs to selenium objects
     module_function :choose_option
-
-    protected
-
-    # Runs block code free of:
-    # `Selenium::WebDriver::Error::StaleElementReferenceError`
-    # Case the exception is raised it is reloaded the dom of the object
-    #
-    # @param block [Block] The block of code to be executed
-    def cover(&block)
-      block.call
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      load_dom
-      retry
-    end
   end
 end

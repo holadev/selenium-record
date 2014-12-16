@@ -22,17 +22,45 @@ module SeleniumRecord
       find(locator).click
     end
 
-    def find(locator)
-      root_el.find_element(locator)
+    # @param [Hash] opts the options to find element
+    # @param opts [String] :global_scope Marks whether the global scope is used
+    #   whenever a root element is not present
+    # @return [Selenium::WebDriver::Element]
+    def find(locator, opts = {})
+      cover do
+        finder = root_el
+        finder = browser if opts[:global_scope] && !finder
+        element = finder.find_element(locator)
+        element.extend(Axiable)
+        element
+      end
+    end
+
+    def find!(locator)
+      find(locator, global_scope: true)
     end
 
     def find_elements(locator)
-      root_el.find_elements(locator)
+      cover { root_el.find_elements(locator) }
     end
 
     def first_last(list)
       blk = ->(first, *_, last) { [first, last] }
       blk.call(*list)
+    end
+
+    protected
+
+    # Runs block code free of:
+    # `Selenium::WebDriver::Error::StaleElementReferenceError`
+    # Case the exception is raised it is reloaded the dom of the object
+    #
+    # @param block [Block] The block of code to be executed
+    def cover(&block)
+      block.call
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      load_dom
+      retry
     end
   end
 end
