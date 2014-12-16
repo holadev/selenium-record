@@ -16,7 +16,7 @@ module SeleniumRecord
     # @return [Module] the module containing the classes for the marker type
     #   group
     def self.extract_namespace(*modules)
-      modules.compact.reduce(so_module) do |klass, sym|
+      modules.compact.reduce(Configuration.objects_module) do |klass, sym|
         klass.const_get(sym)
       end
     end
