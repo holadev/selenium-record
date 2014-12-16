@@ -1,3 +1,12 @@
+## 0.0.3
+
+* Fixed SeleniumRecord::Lookup::MatchingStrategy
+* Renamed Lookup strategies for cleaner code
+
+## 0.0.2.revision
+
+* Updated `activesupport` dependency gem version
+
 ## 0.0.2
 
 * Added rake task for scaffolding

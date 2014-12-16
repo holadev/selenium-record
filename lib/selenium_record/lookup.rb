@@ -49,7 +49,7 @@ module SeleniumRecord
       # @param strategy_sym [Symbol] lookup strategy corresponding with the
       #   name of a lookup strategy locator
       def lookup_strategy(strategy_sym, opts = {})
-        locator_klass = "Lookup#{strategy_sym.to_s.camelize}Strategy"
+        locator_klass = "#{strategy_sym.to_s.camelize}Strategy"
         Module.nesting.shift.const_get(locator_klass).new(self, opts).run
       end
 
@@ -82,7 +82,7 @@ module SeleniumRecord
       end
 
       # Defines a lookup sequence relative to the title xpath
-      class LookupRelativeTitleStrategy < LookupStrategy
+      class RelativeTitleStrategy < LookupStrategy
         def run
           lookup_sequence do
             [title_locator, lookup_attributes[:locator]]
@@ -92,7 +92,7 @@ module SeleniumRecord
 
       # Defines a lookup sequence relative to the xpath of an element present in
       # the selenium object
-      class LookupRelativePathStrategy < LookupStrategy
+      class RelativePathStrategy < LookupStrategy
         def run
           lookup_sequence do
             [send("#{lookup_attributes[:to]}_locator"),
@@ -102,14 +102,14 @@ module SeleniumRecord
       end
 
       # Defines a lookup sequence matching an element path
-      class LookupMatchingStrategy < LookupStrategy
+      class MatchingStrategy < LookupStrategy
         def run
-          lookup_sequence { [lookup_attrs[:locator]] }
+          lookup_sequence { [lookup_attributes[:locator]] }
         end
       end
 
       # Defines a lookup sequence matching the whole document body
-      class LookupRootStrategy < LookupStrategy
+      class RootStrategy < LookupStrategy
         def run
           lookup_sequence { [{ xpath: '//body' }] }
         end
