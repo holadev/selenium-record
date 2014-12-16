@@ -23,13 +23,12 @@ desc
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'pry'
+  spec.add_runtime_dependency 'activesupport', '~> 4.1.8'
 
   spec.add_development_dependency 'bundler', '~> 1.6'
-  spec.add_development_dependency 'cane'
-  spec.add_development_dependency 'codeclimate-test-reporter'
-  spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'cane', '~> 2.6.2'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4.3'
+  spec.add_development_dependency 'coveralls', '~> 0.7.2'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake'
