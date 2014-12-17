@@ -35,6 +35,10 @@ module SeleniumRecord
       el.clear
     end
 
+    def click_on(locator)
+      find(locator).click
+    end
+
     # Clicks on element and wait until all jquery events are dispatched
     # @param how [Symbol]  (:class, :class_name, :css, :id, :link_text, :link,
     #   :partial_link_text, :name, :tag_name, :xpath)
@@ -52,6 +56,12 @@ module SeleniumRecord
       return unless text
       clear(locator)
       find(locator).send_keys(text || '')
+    end
+
+    # @param locator [Hash|Selenium::WebDriver::Element]
+    def focus(locator)
+      element = (locator.is_a?(Hash) && find(locator)) || locator
+      browser.action.move_to(element).perform
     end
 
     def submit

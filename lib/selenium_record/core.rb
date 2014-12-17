@@ -18,10 +18,6 @@ module SeleniumRecord
       false
     end
 
-    def click_on(locator)
-      find(locator).click
-    end
-
     # @param [Hash] opts the options to find element
     # @param opts [String] :global_scope Marks whether the global scope is used
     #   whenever a root element is not present

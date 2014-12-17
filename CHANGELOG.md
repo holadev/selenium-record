@@ -2,6 +2,8 @@
 
 * Fixed SeleniumRecord::Lookup::MatchingStrategy
 * Renamed Lookup strategies for cleaner code
+* Added Basic Documentation
+* Added method `focus` to `SeleniumRecord::Actions` module
 
 ## 0.0.2.revision
 
