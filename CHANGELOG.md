@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Solved dependency reference error on load
+
 ## 0.0.3
 
 * Fixed SeleniumRecord::Lookup::MatchingStrategy
